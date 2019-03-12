@@ -1,5 +1,7 @@
 # mqtt-scripts
 
+BELOW IS THE README for mqtt-scripts. This has not been edited.
+
 [![mqtt-smarthome](https://img.shields.io/badge/mqtt-smarthome-blue.svg)](https://github.com/mqtt-smarthome/mqtt-smarthome)
 [![NPM version](https://badge.fury.io/js/mqtt-scripts.svg)](http://badge.fury.io/js/mqtt-scripts)
 [![dependencies Status](https://david-dm.org/hobbyquaker/mqtt-scripts/status.svg)](https://david-dm.org/hobbyquaker/mqtt-scripts)
