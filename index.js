@@ -26,7 +26,8 @@ const modules = {
     mqtt: require('mqtt'),
     watch: require('watch'),
     'node-schedule': require('node-schedule'),
-    suncalc: require('suncalc')
+    suncalc: require('suncalc'),
+    hass: require('node-homeassistant'),
 };
 
 const domain = modules.domain;
@@ -114,6 +115,21 @@ function sunScheduleEvent(obj, shift) {
             }
         }
     }
+}
+
+// HASS
+if(config.hass) {
+  log.info('HASS Config Present. Loading.');
+  var hass = new modules.hass(config.hass);
+
+  hass.connect();
+
+  hass.on('connection', info => {
+    log.info('HomeAssistant', info);
+  });
+} else {
+  log.info('No HASS Config. Skipping HASS.');
+  var hass = {};
 }
 
 // MQTT
@@ -294,6 +310,8 @@ function runScript(script, name) {
         clearInterval,
 
         Buffer,
+
+        hass: hass,
 
         require(md) {
             if (modules[md]) {

@@ -1,5 +1,7 @@
-./node_modules
+node_modules
 .idea
 .DS_Store
 coverage
 .nyc_output
+myconfig.js
+scripts

@@ -1,6 +1,64 @@
-# mqtt-scripts
+# Home Assistant Support
+
+This is very much a work in process. Not everything is complete or stable.
+
+Below you will find the README for mqtt-scripts. hass-scripts is largely unchanged, however, includes support for Home Assistant. Home Assistant can be used in a script in the following way:
+
+```
+hass.on('state:input_boolean.test1', (state) => {
+  var service;
+  if(state.new_state.state == 'off') {
+    service = 'turn_off';
+  } else {
+    service = 'turn_on';
+  }
+
+  hass.call({
+    domain: 'input_boolean',
+    service: service,
+    service_data: {
+      entity_id: 'input_boolean.test2',
+    },
+  });
+});
+```
+
+Recommended Setup is to make a config file (copy sample-myconfig.js as a starting point) that looks like the following:
+
+```
+const config = {
+  url: 'mqtt://127.0.0.1',
+  latitude: 48.7408,
+  longitude: 9.1778,
+  name: 'logic',
+  'variable-prefix': 'var',
+  verbosity: 'info',
+  'disable-variables': false,
+  'disable-watch': false,
+  hass: {
+    host: '127.0.0.1',
+    protocol: 'ws', // "ws" (default) or "wss" for SSL
+    retryTimeout: 5000, // in ms, default is 5000
+    retryCount: -1, // default is 10, values < 0 mean unlimited
+    token: 'YOUR_LONG_LIVED_TOKEN_HERE',
+    port: 8123
+  }
+};
+
+module.exports = config;
+```
+
+Then, run hass-scripts like this:
+
+```
+./index.js -c ./myconfig.js -d ./scripts/
+```
+
+
 
 BELOW IS THE README for mqtt-scripts. This has not been edited.
+
+# mqtt-scripts
 
 [![mqtt-smarthome](https://img.shields.io/badge/mqtt-smarthome-blue.svg)](https://github.com/mqtt-smarthome/mqtt-smarthome)
 [![NPM version](https://badge.fury.io/js/mqtt-scripts.svg)](http://badge.fury.io/js/mqtt-scripts)
@@ -10,12 +68,12 @@ BELOW IS THE README for mqtt-scripts. This has not been edited.
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![License][mit-badge]][mit-url]
 
-> mqtt-scripts is a Node.js based script runner for use in mqtt based smart home environments. 
+> mqtt-scripts is a Node.js based script runner for use in mqtt based smart home environments.
 
-It's intentended to be used as the "logic layer" in your smart home, and offers a zero-boilerplate, straight forward 
+It's intentended to be used as the "logic layer" in your smart home, and offers a zero-boilerplate, straight forward
 scripting environment.
 
-It follows the [mqtt-smarthome](https://github.com/mqtt-smarthome/mqtt-smarthome) architecture. Mqtt-scripts could be 
+It follows the [mqtt-smarthome](https://github.com/mqtt-smarthome/mqtt-smarthome) architecture. Mqtt-scripts could be
 seen as something like "Node-RED without GUI"
 
 
@@ -116,7 +174,7 @@ Options:
   -m, --longitude                                              [default: 9.1778]                                            
 </pre>
 
-If you're running multiple instances of mqtt-scripts you have to decide which one should handle variables and disable 
+If you're running multiple instances of mqtt-scripts you have to decide which one should handle variables and disable
 the variables on all other instances with the --disable-variable option.
 
 
@@ -292,7 +350,7 @@ Log a debug message
 
 | Type |
 | --- |
-| <code>\*</code> | 
+| <code>\*</code> |
 
 <a name="log.info"></a>
 
@@ -303,7 +361,7 @@ Log an info message
 
 | Type |
 | --- |
-| <code>\*</code> | 
+| <code>\*</code> |
 
 <a name="log.warn"></a>
 
@@ -314,7 +372,7 @@ Log a warning message
 
 | Type |
 | --- |
-| <code>\*</code> | 
+| <code>\*</code> |
 
 <a name="log.error"></a>
 
@@ -325,7 +383,7 @@ Log an error message
 
 | Type |
 | --- |
-| <code>\*</code> | 
+| <code>\*</code> |
 
 <a name="subscribe"></a>
 
@@ -433,7 +491,7 @@ Set a value on one or more topics
 
 | Param | Type |
 | --- | --- |
-| topic | <code>string</code> | 
+| topic | <code>string</code> |
 
 <a name="getProp"></a>
 
@@ -466,7 +524,7 @@ getProp('hm//Bewegungsmelder Keller/MOTION', 'ts');
 
 | Param | Type |
 | --- | --- |
-| topic | <code>string</code> | 
+| topic | <code>string</code> |
 
 <a name="link"></a>
 
