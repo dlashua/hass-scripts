@@ -1,6 +1,8 @@
 # Home Assistant Support
 
-This is very much a work in process. Not everything is complete or stable.
+This is very much a work in process. Not everything is complete or stable. The HASS support provided by hass-scripts is not nearly as clean or as complete as the MQTT support provided by mqtt-scripts and included in this package.
+
+Many of the mqtt methods work with HASS as well, however, these are still being tested and corrected.
 
 Below you will find the README for mqtt-scripts. hass-scripts is largely unchanged, however, includes support for Home Assistant. Home Assistant can be used in a script in the following way:
 
@@ -53,8 +55,6 @@ Then, run hass-scripts like this:
 ```
 ./index.js -c ./myconfig.js -d ./scripts/
 ```
-
-
 
 BELOW IS THE README for mqtt-scripts. This has not been edited.
 
